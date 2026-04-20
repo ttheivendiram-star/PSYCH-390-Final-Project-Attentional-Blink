@@ -1,0 +1,108 @@
+---
+title: "The Effect of Temporal Lag on Target Detection in an Attentional Blink Task"
+author:
+  - name: "Troy Bauce"
+    affiliations: ["University of Waterloo, Department of Psychology, Waterloo, ON, Canada"]
+  - name: "Savera Sethi"
+    affiliations: ["University of Waterloo, Department of Psychology, Waterloo, ON, Canada"]
+  - name: "Trisha Theivendiram"
+    affiliations: ["University of Waterloo, Department of Psychology, Waterloo, ON, Canada"]
+date: "April 22, 2026"
+abstract: |
+    This study examined the effects of the attentional blink task using a rapid serial visual presentation (RSVP) task in which participants identified two target numbers embedded within a stream of letter distractors. The second target (T2) appeared at either a short-lag or long-lag following the first target (T1). The purpose of the study was to investigate how temporal separation between targets influences accuracy in detecting T2. It was hypothesized that T2 identification would be less accurate at longer lags due to a limitation in attentional processing following T1. Results showed higher accuracy for T2 identification at short lags compared to long lags, indicating a significant effect of lag on performance. These findings are consistent with the attentional blink phenomenon, suggesting that attentional resources are temporarily reduced following the processing of an initial target, which impairs detection of a subsequent stimulus when it appears after a longer temporal delay [@visser2012processing]. 
+keywords: [attentional blink, rapid serial visual presentation, temporal lag, target detection, selective attention]
+bibliography: references.bib
+format:
+  elsevier-pdf:
+    keep-tex: true
+    journal:
+      name: "Journal Name"
+      formatting: preprint
+      cite-style: authoryear
+---
+```{r setup}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+\newpage
+
+# Introduction
+
+Attention is a widely studied phenomenon in cognitive psychology, particularly in understanding the limitations of information processing. At any given moment, individuals are exposed to more sensory information than they can fully process, requiring them to selectively attend to prioritize relevant stimuli. The attentional blink paradigm is commonly used to investigate temporal limitations in attentional processing during rapid serial visual presentation (RSVP) tasks [@martens2010attentional]. In a typical attentional blink task, participants view a rapid sequence of stimuli and are asked to identify two target items (T1 and T2) embedded among distractors. The second target (T2) is presented at varying temporal lags, following T1. A well-established finding is that detection of T2 is impaired when it appears approximately 180-270 ms after T1, a phenomenon known as the attentional blink [@dale2011attentional]. This effect is thought to reflect a temporary limitation in attentional resources required to consolidate T1, reducing the ability to process subsequent stimuli [@dale2011attentional]. However, performance is not impaired across all lags. In some cases, T2 accuracy is preserved when it appears immediately after T1 (lag 1 sparing), while performance typically improves again at longer lags as attentional resources recover [@dale2011attentional]. This pattern provides insight into the temporal dynamics of visual attention and the constraints of conscious perception during rapid information processing [@martens2010attentional]. Based on this literature, it was predicted that participants would demonstrate higher accuracy in identifying T2 when it appears at lag 1 compared to lag 5, reflecting reduced attentional interference at shorter temporal separations. 
+
+\newpage
+
+# Methods
+
+Participants were recruited by members of the research group and completed the attentional blink task individually on a computer. A total of 84 trials were included in the final analysis across participants. The experiment was programmed in Python using the Pygame library, and responses were recorded and stored in a CSV file containing trial number, lag condition, and accuracy. The task used a rapid serial visual presentation (RSVP) paradigm in which stimuli were presented at a rate of 100 ms per item. Each trial consisted of a stream of distractor letters and two target numbers (T1 and T2). T1 and T2 were embedded within the sequence, with T2 appearing after a variable number of intervening distractors. Distractor stimuli consisted of randomly generated letters from the alphabet. Two lag conditions were used: lag 1 (short-lag), in which T2 appeared immediately following T1, and lag 5 (long-lag), in which T2 appeared after five intervening items. After each trial, participants were prompted to report the identity of T2 using the computer keyboard. Responses were scored as correct (1) or incorrect (0) based on an exact match to the presented target number. Each participant completed multiple trials across both lag conditions.
+
+\newpage
+
+# Results
+
+The accuracy was analyzed as a function of lag condition (lag 1 vs. lag 5). The participants demonstrated higher accuracy in the lag 1 condition (M = 0.71), compared to the lag 5 condition (M = 0.48). This indicates that the participants were better able to correctly identify the second target when it appeared immediately after the first target than when it appeared after a longer delay. An independent-samples t-test revealed that this difference was statistically significant, t (81) = 2.20, p = .030, indicating that the lag had a significant effect on performance. A bar plot of mean accuracy by lag condition illustrates this pattern, with higher performance observed in the short-lag condition relative to the long-lag condition (see Figure @fig-lagplot).
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-lagplot
+#| fig-cap: "Mean proportion of correct T2 responses as a function of temporal lag between T1 and T2. Error bars represent ±1 standard error of the mean."
+#| fig-width: 6
+#| fig-height: 4
+#| dpi: 300
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+data <- read_csv("SampleData.csv")
+
+data <- data %>%
+  mutate(lag = factor(lag, levels = c(1, 5),
+                      labels = c("Lag 1", "Lag 5"))) %>%
+  filter(!is.na(lag))
+
+summary_data <- data %>%
+  group_by(lag) %>%
+  summarise(
+    mean_accuracy = mean(accuracy, na.rm = TRUE),
+    se = sd(accuracy, na.rm = TRUE) / sqrt(sum(!is.na(accuracy))),
+    .groups = "drop"
+  )
+
+ggplot(summary_data, aes(x = lag, y = mean_accuracy)) +
+  geom_col(width = 0.6) +
+  geom_errorbar(aes(
+    ymin = mean_accuracy - se,
+    ymax = mean_accuracy + se
+  ), width = 0.15) +
+  scale_y_continuous(
+    limits = c(0, 1),
+    expand = c(0, 0)
+  ) +
+  labs(
+    x = "Temporal Lag Between T1 and T2",
+    y = "Mean Proportion of Correct T2 Responses"
+  ) +
+  theme_classic(base_size = 12, base_family = "serif") +
+  theme(
+    axis.title.x = element_text(margin = margin(t = 12)),
+    axis.title.y = element_text(margin = margin(r = 12)),
+    axis.text = element_text(size = 11)
+  )
+```
+\newpage
+
+# Discussion
+The results support the hypothesis that participants demonstrate higher accuracy in the lag 1 condition compared to the lag 5 condition. This pattern is consistent with the attentional blink phenomenon and suggests a temporary limitation in attentional processing following the identification of a first target [@visser2012processing]. These findings align with previous research indicating that attentional resources are briefly constrained after processing an initial stimulus, resulting in reduced accuracy for subsequently presented targets at longer temporal intervals [@visser2012processing]. The relatively preserved performance at lag 1 may also reflect lag-1 sparing, where closely spaced stimuli are processed together before attentional resources are fully engaged in consolidating the first target [@martens2010attentional]. Several limitations should be considered when interpreting these results. First, participants may have required practice to become familiar with the rapid serial visual presentation (RSVP) format, which could have introduced early trial variability in performance. Including additional practice trials may help stabilize performance prior to data collection. Second, the temporal parameters of stimulus presentation may have influenced the magnitude of the attentional blink effect. Differences in presentation speed relative to prior implementations of the paradigm may limit direct comparability with earlier studies [@martens2010attentional]. A further limitation is that only two lag conditions were included, restricting the ability to examine the full temporal profile of the attentional blink effect. Future versions of this task would benefit from incorporating additional lag conditions to better characterize performance across a wider temporal range [@visser2012processing]. In conclusion, this study provides a basic demonstration of the attentional blink effect using a computerized RSVP paradigm and supports established findings regarding temporal limitations in attentional processing.
+
+\newpage
+
+# References {-}

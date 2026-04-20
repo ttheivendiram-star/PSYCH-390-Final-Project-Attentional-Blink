@@ -1,0 +1,76 @@
+---
+title: "An Attentional Blink Study"
+author: "Trisha Theivendiram, Troy Bauce, & Savera Sethi"
+format: revealjs
+css: styles.css
+---
+
+## Abstract
+
+- Investigated the attentional blink phenomenon  
+- Used a rapid serial visual presentation (RSVP) task  
+- Measured accuracy of identifying a second target (T2)  
+- Compared performance across short vs. long lag conditions  
+- Found differences in accuracy depending on lag timing  
+
+---
+
+## Introduction
+
+- Attention is limited despite large amounts of incoming information  
+- Attentional blink = brief “blind spot” after processing a stimulus  
+- RSVP tasks test how timing affects perception of targets  
+- T2 identification depends on when it appears after T1  
+- Hypothesis: higher accuracy at Lag 1 vs. Lag 5  
+
+---
+
+## Methods
+
+- Participants completed task individually on a computer  
+- Programmed in Python using Pygame  
+- Stimuli presented at 100 ms per item (RSVP format)  
+- Two conditions: Lag 1 (immediate) vs. Lag 5 (delayed)  
+- Accuracy recorded as correct (1) or incorrect (0)  
+
+---
+
+## Results
+
+- Accuracy compared between Lag 1 and Lag 5 conditions  
+- Lag 1: higher accuracy (M = 0.71, n = 38)  
+- Lag 5: lower accuracy (M = 0.48, n = 46)  
+- Significant difference: t(80) = 2.20, p < .05  
+- Results support effect of lag on attention  
+
+---
+
+## Discussion
+
+- Findings support hypothesis (Lag 1 > Lag 5 accuracy)  
+- Suggests temporal proximity improves target processing  
+- Supports attentional blink and processing limitation theories  
+- Limitations: small sample, learning effects, slower presentation speed  
+- Future improvements: practice trials, faster stimuli, more participants  
+
+---
+
+## Conclusion
+
+- Attentional blink task successfully implemented  
+- Lag significantly influenced target detection accuracy  
+- Shorter lag improved performance  
+- Demonstrates limits of attentional processing  
+- Provides a reproducible experimental framework  
+
+---
+
+## References
+
+- Attentional blink (RSVP) task – Free template and step-by-step guide. (n.d.). *Testable*. https://www.testable.org/experiment-guides/attention/attentional-blink-task  
+
+- Dale, G., & Arnell, K. M. (2011). How reliable is the attentional blink? Examining the relationships within and between attentional blink tasks over time. *Psychological Research, 77*(2), 99–105. https://doi.org/10.1007/s00426-011-0403-y  
+
+- Martens, S., & Wyble, B. (2010). The attentional blink: Past, present, and future of a blind spot in perceptual awareness. *Neuroscience & Biobehavioral Reviews, 34*(6), 947–957. https://doi.org/10.1016/j.neubiorev.2009.12.005  
+
+- Visser, T. A., & Ohan, J. L. (2012). How does information processing speed relate to the attentional blink? *PLoS ONE, 7*(3). https://doi.org/10.1371/journal.pone.0033265  
